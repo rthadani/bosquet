@@ -85,9 +85,10 @@
                             ((condition-maps pos)))
                         (first (lg/successors graph pos)))]
           (recur (-> state
-                     (update :history conj [pos (:completion state)])
+                     (update :history conj [pos (or (:completion state) current-state)])
                      (assoc :__pos next-node)
-                     (update :trace conj [pos next-node]))))))))
+                     (update :trace conj [pos next-node])
+                     (dissoc :completion))))))))
 
 
 (defmacro defagent 
